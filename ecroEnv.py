@@ -4,49 +4,65 @@ import numpy as np
 from gym import spaces
 from openravepy import *
 
-#Dimensions of input image
-HEIGHT = 416
-WIDTH = 416
-#Patch size
-ACTION_H = 52
-ACTION_W = 96
+GOAL_X = 10
+GOAL_Y = 14
+MAX_X = 11
+MAX_Y = 15
 
 class EcroEnv(gym.Env):
   """Custom Environment to control Ecron robot in openrave using gym interface"""
   metadata = {'render.modes': ['human']}
 
-  def __init__(self, orenv=None, normActions=True):
+  def __init__(self, orenv=None, normActions=False):
 
     self.orenv = orenv #Openrave env
-    self.normActionSpace = True
-    if normActions == False:
-      self.normActions = False
-    else:
+
+    if normActions:
       self.normActions = True
+    else:
+      self.normActions = False
 
     super(EcroEnv, self).__init__()
-    # Define action and observation space
+
     # Action space is velocity of each weel 
-    if self.normActionSpace is True:
+    if self.normActions is True:
         self.action_space = spaces.Box(low=0, high=1, shape=
                     (4,), dtype=float)
+        self.observation_space = spaces.Box(low=0, high=100, shape=
+                (2,), dtype=np.uint8)
+    # Use discrete action space
     else:
-      self.action_space = spaces.Box(low=0, high=10, shape=
-                    (4,), dtype=np.uint8)
-    # ObsSpace shape pending:
-    self.observation_space = spaces.Box(low=0, high=255, shape=
-                    (HEIGHT, WIDTH, 3), dtype=np.uint8)
+      self.action_space = spaces.Discrete(4)
+      self.observation_space = spaces.Tuple((
+            spaces.Discrete(MAX_X),
+            spaces.Discrete(MAX_Y)))
 
   def step(self, action):
-        #Quizas hay que formatear la accion de otra forma
-        velocities = [i*10 for i in action]
-        self.control.SetDesired(action)
-        time.sleep(0.5)#Let robot in that direction for sleep time
+    # In case action is a continuou or a discrete value
+    if self.normActions:  
+      velocities = [i*10 for i in action]
+    else:
+      velocities = self._get_vel_from_action(action)
 
-        H_0_robot = self.robot.GetTransform()
-        print(H_0_robot)
+    self.control.SetDesired(velocities)
+    time.sleep(0.5)#Let robot in that direction for sleep tim
 
-        return H_0_robot
+    reward = 0
+    done = False
+    obs = self._get_obs()
+
+    print(str(obs))
+
+    #Compute reward
+    if obs[0] == GOAL_X and obs[1] == GOAL_Y:
+      reward = 1000
+      done = True
+
+    else:
+      reward = (obs[0] * obs[1]) * 0.5
+
+
+    return obs, reward, done, None
 
   def reset(self):
     # Reset the state of the environment to initial position
@@ -65,5 +81,28 @@ class EcroEnv(gym.Env):
     # Render the environment to the screen
     return 0
 
+  #Computes current cell given Transform matrix
   def _get_obs(self):
-    return self.robot.GetTransform() 
+    transform = self.robot.GetTransform()
+    positionX = int(transform[0][3])
+    positionY = int(transform[1][3])
+    #pos = [positionX, positionY]
+    #return pos
+
+    return (positionX, positionY)
+
+  # Given a discrete action returns velocity vector
+  def _get_vel_from_action(self, action):
+    print(str(action))
+    # Go straight
+    if action == 0:
+      return   [-10.0, -10.0, -10.0, -10.0]
+    # Turn right
+    elif action == 1:
+      return [10.0, 0.0, 10.0, 10.0]
+    # Turn left
+    elif action == 2:
+      return [0, 10.0, 10.0, 10.0]
+    # Go backwards
+    else:
+      return [10.0, 10.0, 10.0, 10.0]
