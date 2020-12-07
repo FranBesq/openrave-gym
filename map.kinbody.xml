@@ -139,48 +139,6 @@
       <diffuseColor>.5 .5 .5</diffuseColor>
     </Geom>
   </Body>
-  <Body name="box_4_1" type="static">
-    <Geom type="box">
-      <Extents>0.5 0.5 0.5</Extents>
-      <Translation>4.5 1.5 0.5</Translation>
-      <diffuseColor>.5 .5 .5</diffuseColor>
-    </Geom>
-  </Body>
-  <Body name="box_4_2" type="static">
-    <Geom type="box">
-      <Extents>0.5 0.5 0.5</Extents>
-      <Translation>4.5 2.5 0.5</Translation>
-      <diffuseColor>.5 .5 .5</diffuseColor>
-    </Geom>
-  </Body>
-  <Body name="box_4_3" type="static">
-    <Geom type="box">
-      <Extents>0.5 0.5 0.5</Extents>
-      <Translation>4.5 3.5 0.5</Translation>
-      <diffuseColor>.5 .5 .5</diffuseColor>
-    </Geom>
-  </Body>
-  <Body name="box_4_4" type="static">
-    <Geom type="box">
-      <Extents>0.5 0.5 0.5</Extents>
-      <Translation>4.5 4.5 0.5</Translation>
-      <diffuseColor>.5 .5 .5</diffuseColor>
-    </Geom>
-  </Body>
-  <Body name="box_4_5" type="static">
-    <Geom type="box">
-      <Extents>0.5 0.5 0.5</Extents>
-      <Translation>4.5 5.5 0.5</Translation>
-      <diffuseColor>.5 .5 .5</diffuseColor>
-    </Geom>
-  </Body>
-  <Body name="box_4_6" type="static">
-    <Geom type="box">
-      <Extents>0.5 0.5 0.5</Extents>
-      <Translation>4.5 6.5 0.5</Translation>
-      <diffuseColor>.5 .5 .5</diffuseColor>
-    </Geom>
-  </Body>
   <Body name="box_4_11" type="static">
     <Geom type="box">
       <Extents>0.5 0.5 0.5</Extents>
@@ -192,48 +150,6 @@
     <Geom type="box">
       <Extents>0.5 0.5 0.5</Extents>
       <Translation>5.5 0.5 0.5</Translation>
-      <diffuseColor>.5 .5 .5</diffuseColor>
-    </Geom>
-  </Body>
-  <Body name="box_5_1" type="static">
-    <Geom type="box">
-      <Extents>0.5 0.5 0.5</Extents>
-      <Translation>5.5 1.5 0.5</Translation>
-      <diffuseColor>.5 .5 .5</diffuseColor>
-    </Geom>
-  </Body>
-  <Body name="box_5_2" type="static">
-    <Geom type="box">
-      <Extents>0.5 0.5 0.5</Extents>
-      <Translation>5.5 2.5 0.5</Translation>
-      <diffuseColor>.5 .5 .5</diffuseColor>
-    </Geom>
-  </Body>
-  <Body name="box_5_3" type="static">
-    <Geom type="box">
-      <Extents>0.5 0.5 0.5</Extents>
-      <Translation>5.5 3.5 0.5</Translation>
-      <diffuseColor>.5 .5 .5</diffuseColor>
-    </Geom>
-  </Body>
-  <Body name="box_5_4" type="static">
-    <Geom type="box">
-      <Extents>0.5 0.5 0.5</Extents>
-      <Translation>5.5 4.5 0.5</Translation>
-      <diffuseColor>.5 .5 .5</diffuseColor>
-    </Geom>
-  </Body>
-  <Body name="box_5_5" type="static">
-    <Geom type="box">
-      <Extents>0.5 0.5 0.5</Extents>
-      <Translation>5.5 5.5 0.5</Translation>
-      <diffuseColor>.5 .5 .5</diffuseColor>
-    </Geom>
-  </Body>
-  <Body name="box_5_6" type="static">
-    <Geom type="box">
-      <Extents>0.5 0.5 0.5</Extents>
-      <Translation>5.5 6.5 0.5</Translation>
       <diffuseColor>.5 .5 .5</diffuseColor>
     </Geom>
   </Body>

@@ -13,9 +13,9 @@ from utils import select_optimal_action
 # The hyperparameters
 alpha = 0.1
 gamma = 0.6
-epsilon = 0.1
+epsilon = 0.3
 
-NUM_EPISODES = 100
+NUM_EPISODES = 4
 
 '''
 Q- learning implementation taken from:

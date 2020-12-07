@@ -38,6 +38,9 @@ class EcroEnv(gym.Env):
             spaces.Discrete(MAX_Y)))
 
   def step(self, action):
+
+    prev_obs = self._get_obs()
+
     # In case action is a continuou or a discrete value
     if self.normActions:  
       velocities = [i*10 for i in action]
@@ -55,11 +58,14 @@ class EcroEnv(gym.Env):
 
     #Compute reward
     if obs[0] == GOAL_X and obs[1] == GOAL_Y:
-      reward = 1000
+      reward = 20
       done = True
 
+    elif prev_obs == obs:
+      reward = -10
+    #Reward is Manhattan Dist
     else:
-      reward = (obs[0] * obs[1]) * 0.5
+      reward = 1/((GOAL_X - obs[0]) + (GOAL_Y - obs[1]))
 
 
     return obs, reward, done, None
@@ -99,10 +105,10 @@ class EcroEnv(gym.Env):
       return   [-10.0, -10.0, -10.0, -10.0]
     # Turn right
     elif action == 1:
-      return [10.0, 0.0, 10.0, 10.0]
+      return [10.0, 0.0, 5.0, 5.0]
     # Turn left
     elif action == 2:
-      return [0, 10.0, 10.0, 10.0]
+      return [0, 10.0, 5.0, 5.0]
     # Go backwards
     else:
       return [10.0, 10.0, 10.0, 10.0]
