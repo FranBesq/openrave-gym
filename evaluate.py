@@ -2,7 +2,7 @@ import pickle
 import click
 import gym
 
-from utils import select_optimal_action
+from utils.utils import select_optimal_action
 
 NUM_EPISODES = 100
 

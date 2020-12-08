@@ -8,7 +8,7 @@ import pickle
 import random
 import click
 from collections import defaultdict
-from utils import select_optimal_action
+from utils.utils import select_optimal_action
 
 # The hyperparameters
 alpha = 0.1
