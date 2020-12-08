@@ -17,7 +17,7 @@ ecroEnv.py implementes the gym interface using openravepy API
 Train an agent to get out of the maze:
 
 ```
-python trainEcroEnv.py --num-episodes 1000 --save-path q_table.pickle --render True
+python trainEcroEnv.py --num-episodes 1000 --save-path q_table.pickle --render 2
 ```
 
  Try `python trainEcroEnv.py --help` to get the following help message
