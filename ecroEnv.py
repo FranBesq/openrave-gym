@@ -4,8 +4,8 @@ import numpy as np
 from gym import spaces
 from openravepy import *
 
-GOAL_X = 10
-GOAL_Y = 14
+GOAL_X = 14
+GOAL_Y = 10
 MAX_X = 11
 MAX_Y = 15
 
@@ -13,10 +13,10 @@ class EcroEnv(gym.Env):
   """Custom Environment to control Ecron robot in openrave using gym interface"""
   metadata = {'render.modes': ['human']}
 
-  def __init__(self, orenv=None, normActions=False):
+  def __init__(self, orenv=None, normActions=False, debug=True):
 
     self.orenv = orenv #Openrave env
-
+    self.debug = debug
     if normActions:
       self.normActions = True
     else:
@@ -48,25 +48,26 @@ class EcroEnv(gym.Env):
       velocities = self._get_vel_from_action(action)
 
     self.control.SetDesired(velocities)
-    time.sleep(0.5)#Let robot in that direction for sleep tim
+    time.sleep(0.5)#Let robot in that direction for sleep time
 
     reward = 0
     done = False
     obs = self._get_obs()
 
-    print(str(obs))
-
     #Compute reward
     if (obs[0] == GOAL_X) and (obs[1] == GOAL_Y):
       reward = 20
       done = True
-
     elif prev_obs == obs:
-      reward = -101
+      reward = -10
     #Reward is Manhattan Dist
     else:
       reward = 1/((GOAL_X - obs[0]) + (GOAL_Y - obs[1]) + 1) #+1 to avoid dividing by 0
-
+    
+    if self.debug:
+      print("Reward: "+str(reward))
+      print("Current cell: "+str(obs))
+      print("Action taken: "+str(action))
 
     return obs, reward, done, None
 
@@ -99,16 +100,15 @@ class EcroEnv(gym.Env):
 
   # Given a discrete action returns velocity vector
   def _get_vel_from_action(self, action):
-    print(str(action))
     # Go backwards
     if action == 0:
       return   [-10.0, -10.0, -10.0, -10.0]
     # Turn right
     elif action == 1:
-      return [10.0, 0.0, 5.0, 5.0]
+      return [10.0, 0.0, 0.0, 0.0]
     # Turn left
     elif action == 2:
-      return [0, 10.0, 5.0, 5.0]
+      return [0, 10.0, 0.0, 0.0]
     # Go straight
     else:
       return [10.0, 10.0, 10.0, 10.0]

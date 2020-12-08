@@ -13,9 +13,9 @@ from utils.utils import select_optimal_action
 # The hyperparameters
 alpha = 0.1
 gamma = 0.6
-epsilon = 0.3
+epsilon = 0.1
 
-NUM_EPISODES = 4
+NUM_EPISODES = 1
 
 '''
 Q- learning implementation taken from:
@@ -67,7 +67,7 @@ def train_agent(q_table, env, num_episodes):
         print("\nTraining episode {}".format(i + 1))
         print("Time steps: {}, Penalties: {}, Reward: {}".format(epochs,
                                                                  num_penalties,
-                                                                 total_reward))
+                                                                                      total_reward))
 
     print("Training finished.\n")
 

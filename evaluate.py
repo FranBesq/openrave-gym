@@ -1,6 +1,10 @@
-import pickle
-import click
+from openravepy import *
 import gym
+import ecroEnv
+import time
+import pickle
+import random
+import click
 
 from utils.utils import select_optimal_action
 
@@ -42,9 +46,18 @@ def evaluate_agent(q_table, env, num_trials):
 
 @click.command()
 @click.option('--num-episodes', default=NUM_EPISODES, help='Number of episodes to train on', show_default=True)
-@click.option('--q-path', default="q_table.pickle", help='Path to read the q-table values from', show_default=True)
-def main(num_episodes, q_path):
-    env = gym.make("Taxi-v3")
+@click.option('--q-path', default="q_table.pickle", help='Path to load the Q-table dump', show_default=True)
+@click.option('--render', default=2, help='Set viwer, 0 means no viwer, 1 for qtosq, 2 for qtcoin', show_default=True)
+def main(num_episodes, q_path, render):
+
+    orenv = Environment() # create openrave environment
+
+    if render==1:
+        env.SetViewer('qtosg') # attach viewer 
+    elif render==2:
+        orenv.SetViewer('qtcoin') # attach viewer     
+
+    env = ecroEnv.EcroEnv(orenv=orenv)
     with open(q_path, 'rb') as f:
         q_table = pickle.load(f)
     evaluate_agent(q_table, env, num_episodes)
