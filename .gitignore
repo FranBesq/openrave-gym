@@ -3,12 +3,16 @@ assets/
 openrave-manipulator-dump.py
 openrave-map-from-csv.py
 q-learning/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *$py.class
+*.pyc
+*.pickle
 
 # C extensions
 *.so
+
 
 # Distribution / packaging
 .Python
