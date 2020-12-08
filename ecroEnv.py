@@ -57,15 +57,15 @@ class EcroEnv(gym.Env):
     print(str(obs))
 
     #Compute reward
-    if obs[0] == GOAL_X and obs[1] == GOAL_Y:
+    if (obs[0] == GOAL_X) and (obs[1] == GOAL_Y):
       reward = 20
       done = True
 
     elif prev_obs == obs:
-      reward = -10
+      reward = -101
     #Reward is Manhattan Dist
     else:
-      reward = 1/((GOAL_X - obs[0]) + (GOAL_Y - obs[1]))
+      reward = 1/((GOAL_X - obs[0]) + (GOAL_Y - obs[1]) + 1) #+1 to avoid dividing by 0
 
 
     return obs, reward, done, None
@@ -100,7 +100,7 @@ class EcroEnv(gym.Env):
   # Given a discrete action returns velocity vector
   def _get_vel_from_action(self, action):
     print(str(action))
-    # Go straight
+    # Go backwards
     if action == 0:
       return   [-10.0, -10.0, -10.0, -10.0]
     # Turn right
@@ -109,6 +109,6 @@ class EcroEnv(gym.Env):
     # Turn left
     elif action == 2:
       return [0, 10.0, 5.0, 5.0]
-    # Go backwards
+    # Go straight
     else:
       return [10.0, 10.0, 10.0, 10.0]

@@ -80,14 +80,16 @@ def train_agent(q_table, env, num_episodes):
 def main(num_episodes, save_path, render):
 
     orenv = Environment() # create openrave environment
-    #env.SetViewer('qtosg') # attach viewer (optional)
-    orenv.SetViewer('qtcoin') # attach viewer (optional)
+
+    if render==1:
+        env.SetViewer('qtosg') # attach viewer 
+    elif render==2:
+        orenv.SetViewer('qtcoin') # attach viewer     
 
     env = ecroEnv.EcroEnv(orenv=orenv)
 
     #obs = env.reset()
     #print(str(obs))
-    #while True:
     '''
     for i in range(5):
         #action, _states = model.predict(obs)
